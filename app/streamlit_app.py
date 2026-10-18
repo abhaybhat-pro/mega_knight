@@ -10,7 +10,7 @@ configure_threads()
 from app.ui import chrome, footer
 from pathlib import Path as _Path
 
-chrome("ForgetMe + Aegis-Z Guard")
+chrome("Delearner")
 st_path = _Path(ROOT) / "docs" / "ibm_status.md"
 import streamlit as st
 
