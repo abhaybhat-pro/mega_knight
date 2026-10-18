@@ -16,7 +16,7 @@ only.**
 
 ## 0. This laptop (WSL2 Ubuntu, x86_64 rehearsal)
 
-These steps were run here. They are not an s390x result. The LinuxONE host stays `<TODO>` until a person supplies the SSH line.
+These steps were run here. They are not an s390x result. The LinuxONE host stays `<linux1@148.100.78.177>` until a person supplies the SSH line.
 
 ```bash
 # from the Windows tree, the Linux copy lives at ~/forgetme-aegis
