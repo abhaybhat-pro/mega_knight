@@ -1,0 +1,9 @@
+GATE 3 start 2026-10-18T04:19:30Z
+contract_check wave 3: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+.                                                                        [100%]
+1 passed, 2 skipped in 10.45s
+Demo: bash scripts/run_demo.sh   (fresh clone, on the VM, not this laptop)
+This script does not run the demo. Gate 3 demo evidence has to come from the VM.
+GATE 3: PASS (pytest green, or a documented Planned attempt log exists)
+Demo-on-VM is still a separate required check. See docs/project/STATUS.md.

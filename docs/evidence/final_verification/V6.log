@@ -1,0 +1,13 @@
+PASS  verify_receipt (real)
+PASS  verify_log (real)
+PASS  receipt-to-log linkage (real)
+PASS  tampered receipt copy detected (one byte flipped, still valid JSON)
+PASS  tampered middle log entry detected (first bad seq 2)
+  [OK ] receipt with ONE flipped byte: REJECTED  [byte 1042: 2 -> 3]
+  [OK ] receipt value edited (signature kept): REJECTED
+  [OK ] receipt edited and re-signed (log cross-check): REJECTED  [receipt content does not match the hash recorded in the log]
+  [OK ] log with a middle entry edited: REJECTED  [chain breaks at seq 2]
+  [OK ] log with a middle entry deleted: REJECTED  [chain breaks at seq 2]
+  [OK ] log restored verifies again: valid
+
+All tampering detected.

@@ -1,0 +1,21 @@
+cores=2  rows=20000  file=train.csv  repeats=1  x86_64 rehearsal, not s390x
+  erase_vs_full  workers=1   shards=1   median=   1.948s
+  erase_vs_full  workers=1   shards=4   median=   0.555s
+  erase_vs_full  workers=1   shards=8   median=   0.303s
+  erase_vs_full  workers=1   shards=16  median=   0.189s
+  profile generate
+  profile train_all
+    soft gate PASS: avg CPU 87.3% (line is 85% of the machine)
+  profile shadow_build
+    soft gate PASS: avg CPU 99.2% (line is 85% of the machine)
+  profile audit
+    soft gate WARN: avg CPU 51.7% (line is 85% of the machine) likely cause: 2 workers on 2 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile erase_one_shard
+  profile full_retrain_parallel
+    soft gate PASS: avg CPU 89.9% (line is 85% of the machine)
+  profile full_retrain_serial
+  profile guard_stream
+  profile report
+  wrote /tmp/claude-0/prof/resource_profile.csv
+  Amdahl ceiling for 8 shard tasks on 2 cores: 100%. x86_64 rehearsal, not s390x.
+/tmp/claude-0/prof/results.csv

@@ -1,0 +1,39 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+Using Python 3.12.3 environment at: /tmp/final_check_lPWC/vmin
+Resolved 15 packages in 862ms
+Downloading numpy (17.1MiB)
+Downloading pandas (11.1MiB)
+Downloading scipy (34.1MiB)
+Downloading scikit-learn (10.3MiB)
+ Downloaded scikit-learn
+ Downloaded pandas
+ Downloaded numpy
+ Downloaded scipy
+Prepared 7 packages in 5.04s
+Installed 15 packages in 28ms
+ + iniconfig==2.3.1
+ + joblib==1.3.2
+ + numpy==1.26.4
+ + packaging==26.3
+ + pandas==2.1.4
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + python-dateutil==2.9.0.post0
+ + pytz==2026.5
+ + scikit-learn==1.3.2
+ + scipy==1.11.4
+ + six==1.17.0
+ + threadpoolctl==3.7.0
+ + tzdata==2026.5
+1.26.4 2.1.4 1.3.2 1.11.4 1.3.2
+test_generate.py: 10 passed in 0.69s
+test_shards.py: 8 passed, 6 warnings in 15.02s
+test_predict.py: 4 passed in 4.59s
+test_receipt.py: 25 passed in 0.38s
+test_log.py: 16 passed in 0.50s
+test_validator.py: 25 passed in 0.14s
+test_guard.py: 4 passed, 6 warnings in 15.20s
+test_facade.py: 10 passed, 6 warnings in 3.48s
+test_erase.py: 25 passed, 196 warnings in 330.93s (0:05:30)
+test_queue.py: 8 passed, 66 warnings in 91.43s (0:01:31)

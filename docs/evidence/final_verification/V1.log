@@ -1,0 +1,99 @@
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+Resolved 49 packages in 207ms
+Installed 49 packages in 95ms
+ + altair==6.3.0
+ + anyio==4.15.1
+ + attrs==26.1.0
+ + certifi==2026.7.22
+ + charset-normalizer==3.5.2
+ + click==8.5.0
+ + cloudpickle==3.1.2
+ + contourpy==1.4.0
+ + cycler==0.12.1
+ + fonttools==4.67.0
+ + h11==0.16.0
+ + idna==3.20
+ + iniconfig==2.3.1
+ + itsdangerous==2.2.0
+ + jinja2==3.1.6
+ + joblib==1.6.0
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + kiwisolver==1.5.1
+ + markupsafe==3.0.4
+ + matplotlib==3.11.2
+ + narwhals==2.27.1
+ + numpy==2.5.4
+ + packaging==26.3
+ + pandas==3.0.6
+ + pillow==12.3.0
+ + pluggy==1.7.0
+ + protobuf==7.36.2
+ + pyarrow==26.0.0
+ + pydeck==0.9.3
+ + pygments==2.21.0
+ + pyparsing==3.3.3
+ + pytest==9.1.1
+ + python-dateutil==2.9.0.post0
+ + python-multipart==0.0.32
+ + referencing==0.37.0
+ + requests==2.34.2
+ + rpds-py==2026.9.1
+ + scikit-learn==1.9.1
+ + scipy==1.18.1
+ + six==1.17.0
+ + starlette==1.8.0
+ + streamlit==1.66.0
+ + threadpoolctl==3.7.0
+ + typing-extensions==4.16.0
+ + urllib3==2.8.0
+ + uvicorn==0.54.0
+ + watchdog==6.0.0
+ + websockets==17.2
+.s...................................................................... [ 50%]
+.......................................................................  [100%]
+=============================== warnings summary ===============================
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+  /usr/lib/python3.13/multiprocessing/popen_fork.py:73: DeprecationWarning: This process (pid=2487) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+142 passed, 3 skipped, 42 deselected, 4 warnings in 171.04s (0:02:51)
+contract_check wave 1: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+contract_check wave 3: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+ForgetMe + Aegis-Z Guard demo | x86_64 | 2 core(s) | Python 3.13.16
+[1/9] generate synthetic data (seed 42) ...
+      done in 0.2s (20000 train rows, 2000 test rows)
+[2/9] train 8 shards ...
+      done in 3.1s
+[3/9] baseline audit (shard 3 and whole model) ...
+      done in 0.8s
+      baseline ensemble: attack_auc=0.7741463414634147 tpr@1%fpr=0.14634146341463414
+      baseline shard: attack_auc=0.9882317073170732 tpr@1%fpr=0.6097560975609756
+[4/9] guard: drift stream and no-drift stream ...
+      drift stream: 1 village(s) reached the major drift line, 1348 decision(s) held for human review
+      no-drift stream: 0 holds and 0 village flags; advisories (never added to the hold list): {'age_18_39': 2}
+      done in 5.6s
+[5/9] erase 41 member canaries in shard 3 (one request) ...
+      done in 6.4s
+      receipt guard counts: drift_flags=1 held_decisions=1348 (counts only, no person ids)
+[6/9] after-audit (from the receipt) ...
+      after ensemble: attack_auc=0.5132317073170731 tpr@1%fpr=0.0
+      after shard: attack_auc=0.45658536585365855 tpr@1%fpr=0.0
+[7/9] post-erase subgroup AUROC check ...
+      max subgroup AUROC drop 0.0015 (limit 0.03): OK
+      done in 0.4s
+[8/9] plain-language report ...
+      writer: template (Granite not used: not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF))
+      numbers validator: PASS
+      done in 0.0s
+[9/9] verification (receipt signature, log chain) ...
+      receipt signature: OK
+      erasure log chain: OK
+REPORT:  receipts/REQ-0001_report.txt
+RECEIPT: receipts/REQ-0001.json

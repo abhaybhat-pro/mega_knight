@@ -1,0 +1,32 @@
+cores=2  rows=20000  file=train.csv  repeats=3  x86_64 rehearsal, not s390x
+  train_scaling  workers=1   shards=8   median=   2.486s
+  train_scaling  workers=2   shards=8   median=   1.559s
+  train_scaling  workers=4   shards=8   median=   1.603s
+  train_scaling  workers=8   shards=8   median=   1.907s
+  train_scaling  workers=1   shards=1   median=   2.115s
+  train_scaling  workers=1   shards=4   median=   2.111s
+  train_scaling  workers=1   shards=16  median=   3.025s
+  erase_vs_full  workers=1   shards=1   median=   1.953s
+  erase_vs_full  workers=1   shards=4   median=   0.491s
+  erase_vs_full  workers=1   shards=8   median=   0.330s
+  erase_vs_full  workers=1   shards=16  median=   0.198s
+  audit_scaling  workers=1   shards=8   median=  41.045s
+  audit_scaling  workers=2   shards=8   median=  22.008s
+  full_retrain_parallel workers=-1  shards=8   median=   1.457s
+  full_retrain_serial workers=1   shards=8   median=   2.432s
+  profile generate
+  profile train_all
+    soft gate WARN: avg CPU 80.9% (line is 85% of the machine) likely cause: 2 workers on 2 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile shadow_build
+    soft gate WARN: avg CPU 0.0% (line is 85% of the machine) likely cause: 2 workers on 2 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile audit
+    soft gate WARN: avg CPU 51.6% (line is 85% of the machine) likely cause: 2 workers on 2 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile erase_one_shard
+  profile full_retrain_parallel
+    soft gate WARN: avg CPU 79.3% (line is 85% of the machine) likely cause: 2 workers on 2 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile full_retrain_serial
+  profile guard_stream
+  profile report
+  wrote docs/evidence/bench_snapshot_x86_64-2cores-cloud-rehearsal/resource_profile.csv
+  Amdahl ceiling for 8 shard tasks on 2 cores: 100%. x86_64 rehearsal, not s390x.
+docs/evidence/bench_snapshot_x86_64-2cores-cloud-rehearsal/results.csv

@@ -1,0 +1,16 @@
+experiment,n_workers,n_shards,seconds,n_cores
+train_scaling,1,8,2.4859,2
+train_scaling,2,8,1.5587,2
+train_scaling,4,8,1.6033,2
+train_scaling,8,8,1.9067,2
+train_scaling,1,1,2.1145,2
+train_scaling,1,4,2.1112,2
+train_scaling,1,16,3.0252,2
+erase_vs_full,1,1,1.9531,2
+erase_vs_full,1,4,0.4913,2
+erase_vs_full,1,8,0.3296,2
+erase_vs_full,1,16,0.1978,2
+audit_scaling,1,8,41.0453,2
+audit_scaling,2,8,22.0077,2
+full_retrain_parallel,-1,8,1.4567,2
+full_retrain_serial,1,8,2.4324,2

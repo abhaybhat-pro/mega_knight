@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.7.0 -- /home/claude/forgetme-aegis/.venv/bin/python
+rootdir: /home/claude/forgetme-aegis
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 7 items
+
+tests/test_audit.py::test_bug_hunt_preconditions PASSED                  [ 14%]
+tests/test_audit.py::test_before_erase_gate PASSED                       [ 28%]
+tests/test_audit.py::test_shadow_cache_reused_and_audit_deterministic PASSED [ 42%]
+tests/test_audit.py::test_after_erase PASSED                             [ 57%]
+tests/test_audit.py::test_single_shard_erase_ensemble_is_informational PASSED [ 71%]
+tests/test_audit.py::test_schema_shape PASSED                            [ 85%]
+tests/test_audit.py::test_secondary_weaker_than_canaries PASSED          [100%]
+
+========================= 7 passed in 72.44s (0:01:12) =========================

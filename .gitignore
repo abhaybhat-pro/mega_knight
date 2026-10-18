@@ -1,0 +1,33 @@
+# generated, machine-specific or secret: never committed
+.venv/
+venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+*.key
+*.zip
+*.gguf
+*.onnx
+demo_out/
+
+# runtime directories: keep the folder, ignore the content
+data/*
+!data/.gitkeep
+models/*
+!models/.gitkeep
+logs/*
+!logs/.gitkeep
+receipts/*
+!receipts/.gitkeep
+
+# generated benchmark scratch and outputs (a labelled snapshot lives in docs/evidence/)
+bench/results.csv
+bench/results_meta.json
+bench/resource_profile.csv
+bench/scaling_notes.md
+bench/shards_curve/
+bench/_tmp/
+bench/_profile_generate/
+bench/**/*.png
+dist/

@@ -1,0 +1,47 @@
+{
+ "byteorder": "little",
+ "experiments": {
+  "audit_scaling": {
+   "is_real": true,
+   "n_members": 400,
+   "n_nonmembers": 400,
+   "source": "real src.audit.mia.run_audit",
+   "standin": null
+  },
+  "erase_vs_full": {
+   "ids_removed": {
+    "1": 400,
+    "16": 18,
+    "4": 96,
+    "8": 41
+   },
+   "n_workers": 1,
+   "source": "remove member-canary batch + src.model.shards.train_shard on the one affected shard. NOT the end-to-end erase() (audit, log, receipt not timed)"
+  },
+  "full_retrain_parallel": {
+   "headline": "full_retrain_seconds",
+   "source": "fit_models with n_workers=-1 (plan_workers on the measured cores)"
+  },
+  "full_retrain_serial": {
+   "source": "fit_models with n_workers=1, labelled separately from the parallel baseline"
+  },
+  "train_scaling": {
+   "n_shards_main": 8,
+   "source": "src.model.shards.fit_models (Dev 1), no disk I/O"
+  }
+ },
+ "machine": "x86_64",
+ "n_cores": 8,
+ "n_train_rows": 20000,
+ "python": "3.12.3",
+ "quick": false,
+ "repeats": 3,
+ "timestamp_utc": "2026-10-17T23:06:34Z",
+ "training_file": "train.csv",
+ "workers": [
+  1,
+  2,
+  4,
+  8
+ ]
+}

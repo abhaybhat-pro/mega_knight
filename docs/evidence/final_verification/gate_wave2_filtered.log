@@ -1,0 +1,30 @@
+GATE 2 start 2026-10-17T23:54:26Z
+contract_check wave 2: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+...F.                                                                    [100%]
+=================================== FAILURES ===================================
+E   assert 0.5 <= 0.4635396341463415
+/home/galaba/forgetme-aegis/tests/test_audit.py:92: assert 0.5 <= 0.4635396341463415
+=========================== short test summary info ============================
+FAILED tests/test_audit.py::test_after_erase - assert 0.5 <= 0.4635396341463415
+1 failed, 4 passed, 76 deselected in 88.58s (0:01:28)
+2026-10-17 23:56:05.985 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   streamlit_app.py
+2026-10-17 23:56:08.299 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   1_Train.py
+2026-10-17 23:56:08.442 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   2_Predict.py
+2026-10-17 23:56:08.572 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   3_Erase.py
+2026-10-17 23:56:08.696 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   4_Audit.py
+2026-10-17 23:56:08.812 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   5_Guard.py
+2026-10-17 23:56:08.944 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   6_Receipts.py
+2026-10-17 23:56:09.362 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   7_Benchmarks.py
+2026-10-17 23:56:09.506 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   erase flow -> receipt + verified badge ['✔ VERIFIED']
+ok   tamper test shows INVALID
+GATE 2: FAIL

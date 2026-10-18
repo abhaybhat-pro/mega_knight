@@ -1,0 +1,68 @@
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+tests/test_log.py::test_concurrent_appends_threads_and_processes
+  /usr/lib/python3.13/multiprocessing/popen_fork.py:73: DeprecationWarning: This process (pid=2603) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+68 passed, 2 deselected, 4 warnings in 61.75s (0:01:01)
+HOUR-3 audit_gate.py is not part of this script's pytest list.
+On the LinuxONE VM, after generate + train, run: python3 scripts/audit_gate.py
+Do not treat a laptop result as the s390x measurement.
+GATE 1: PASS
+2026-10-18 04:19:22.325 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   4_Audit.py
+2026-10-18 04:19:22.424 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   5_Guard.py
+2026-10-18 04:19:22.528 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   6_Receipts.py
+2026-10-18 04:19:22.637 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   7_Benchmarks.py
+2026-10-18 04:19:22.743 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   erase flow -> receipt + verified badge ['✔ VERIFIED']
+ok   tamper test shows INVALID
+GATE 2: PASS
+GATE 3 start 2026-10-18T04:19:30Z
+contract_check wave 3: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+.                                                                        [100%]
+1 passed, 2 skipped in 10.45s
+Demo: bash scripts/run_demo.sh   (fresh clone, on the VM, not this laptop)
+This script does not run the demo. Gate 3 demo evidence has to come from the VM.
+GATE 3: PASS (pytest green, or a documented Planned attempt log exists)
+Demo-on-VM is still a separate required check. See docs/project/STATUS.md.
+wrote 4 CSVs to /home/claude/forgetme-aegis/data/ (seed=42, features=13)
+host=x86_64; cores=2; any number from a host that is not s390x is a rehearsal number, never an s390x result
+trained 8 shards in 3.4s
+audit (incl. shadow build/cache load) 0.6s
+
+shard 0: n= 50 AUC cal=0.994 CI=0.989-0.998 raw=0.991 TPR@1%FPR=0.800
+shard 1: n= 49 AUC cal=0.992 CI=0.982-0.999 raw=0.991 TPR@1%FPR=0.980
+shard 2: n= 63 AUC cal=0.995 CI=0.989-0.998 raw=0.992 TPR@1%FPR=0.825
+shard 3: n= 41 AUC cal=0.988 CI=0.979-0.995 raw=0.980 TPR@1%FPR=0.610
+shard 4: n= 37 AUC cal=0.993 CI=0.986-0.998 raw=0.985 TPR@1%FPR=0.865
+shard 5: n= 58 AUC cal=0.994 CI=0.988-0.998 raw=0.984 TPR@1%FPR=0.879
+shard 6: n= 47 AUC cal=0.992 CI=0.985-0.997 raw=0.992 TPR@1%FPR=0.702
+shard 7: n= 55 AUC cal=0.990 CI=0.982-0.996 raw=0.967 TPR@1%FPR=0.745
+
+ensemble: AUC cal=0.825 CI=0.797-0.854 raw=0.613 (CI 0.574-0.651) TPR@1%FPR=0.165 (CI 0.107-0.237)
+secondary (500 train vs 500 test, raw): ensemble AUC=0.523 CI=0.489-0.558
+
+floor check uses the CALIBRATED AUC; raw shown side by side
+scope       calibrated     raw  floor
+shard 0          0.994   0.991   0.90
+shard 1          0.992   0.991   0.90
+shard 2          0.995   0.992   0.90
+shard 3          0.988   0.980   0.90
+shard 4          0.993   0.985   0.90
+shard 5          0.994   0.984   0.90
+shard 6          0.992   0.992   0.90
+shard 7          0.990   0.967   0.90
+ensemble         0.825   0.613   0.62
+
+PASS  shard worst calibrated AUC >= 0.9 (worst=0.988, mean=0.992)
+PASS  shard lower CI > 0.5 on every shard (min=0.979)
+PASS  ensemble calibrated AUC >= 0.62 (0.825)
+PASS  ensemble lower CI > 0.5 (0.797)
+
+GATE: PASS

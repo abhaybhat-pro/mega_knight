@@ -1,0 +1,31 @@
+=== dp attempt 2026-10-18T03:19:11Z host x86_64 python3.12 ===
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: /tmp/claude-0/venv_dp
+Activate with: source /tmp/claude-0/venv_dp/bin/activate
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+Using Python 3.12.3 environment at: /tmp/claude-0/venv_dp
+Resolved 16 packages in 369ms
+Downloading scikit-learn (12.3MiB)
+ Downloaded scikit-learn
+Prepared 3 packages in 505ms
+Installed 16 packages in 31ms
+ + cloudpickle==3.1.2
+ + diffprivlib==0.6.6
+ + iniconfig==2.3.1
+ + joblib==1.6.0
+ + numpy==2.5.4
+ + packaging==26.3
+ + pandas==3.0.6
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + python-dateutil==2.9.0.post0
+ + scikit-learn==1.5.2
+ + scipy==1.18.1
+ + setuptools==84.0.0
+ + six==1.17.0
+ + threadpoolctl==3.7.0
+sklearn 1.5.2 numpy 2.5.4
+..                                                                       [100%]
+2 passed in 5.12s

@@ -1,0 +1,11 @@
+plotly: installed
+ok   streamlit_app.py
+ok   1_Train.py
+ok   2_Predict.py
+ok   3_Erase.py
+ok   4_Audit.py
+ok   5_Guard.py
+ok   6_Receipts.py
+ok   7_Benchmarks.py
+ok   erase flow -> receipt + verified badge ['✔ VERIFIED']
+ok   tamper test shows INVALID

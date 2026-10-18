@@ -1,0 +1,20 @@
+# Granite attempt log (append-only). Format: UTC time | status | detail
+# Status of the Granite writer: PLANNED. Nothing below this line is a successful Granite run
+# unless it says "OK granite report passed number validation" from the VM.
+# narrate.generate_report appends one line per attempt (OK / REJECTED / UNAVAILABLE / ERROR);
+# scripts/build_llamacpp.sh appends BUILD lines.
+#
+# To verify before attempting (do not assume):
+#   1. Does IBM publish a BIG-ENDIAN GGUF of a Granite model? Check the ibm-granite pages on
+#      Hugging Face and the llama.cpp s390x docs. If not, convert from the safetensors model
+#      with llama.cpp's convert_hf_to_gguf.py using its big-endian option (check --help).
+#   2. Quantised GGUF files made on a little-endian machine do not load on s390x as-is.
+#   3. Flags differ between llama.cpp versions: run `<build>/bin/llama-cli --help` and set
+#      FORGETME_LLAMA_ARGS if "-no-cnv --no-display-prompt" is not right for your build.
+2026-10-18T03:23:22Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)
+2026-10-18T03:25:58Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)
+2026-10-18T03:26:23Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)
+2026-10-18T03:26:46Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)
+2026-10-18T04:01:15Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)
+2026-10-18T04:01:35Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)
+2026-10-18T04:02:04Z | UNAVAILABLE | not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF)

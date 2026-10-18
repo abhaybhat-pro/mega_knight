@@ -1,0 +1,20 @@
+# baseline_before: 2026-10-18T02:20:32Z x86_64 nproc=2 py=Python 3.13.16
+joblib==1.6.0
+matplotlib==3.11.2
+numpy==2.5.4
+pandas==3.0.6
+pytest==9.1.1
+scikit-learn==1.9.1
+scipy==1.18.1
+streamlit==1.66.0
+
+## contract_check --wave 1
+contract_check wave 1: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+
+## contract_check --wave 3
+contract_check wave 3: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+
+## fast tests (generate paths receipt log validator facade guard shards predict)
+102 passed, 4 warnings in 33.65s

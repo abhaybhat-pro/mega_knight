@@ -1,0 +1,15 @@
+# Optional packages. NOTHING here is installed into the product venv by default, and every
+# item stays "Planned" in docs/ibm_status.md until a log under docs/evidence/ shows it ran.
+# Install into a SEPARATE venv (see docs/evidence/onnx_env.md and docs/evidence/dp_env.md).
+
+# app/ pages only. Used for interactive charts; the pages fall back to matplotlib without it.
+plotly
+
+# src/model/dp.py and tests/test_dp.py (FR-16). A differential-privacy model is a SEPARATE
+# guarantee from shard unlearning. Planned fallback: tests/test_dp.py skips itself.
+diffprivlib
+
+# src/serving/export_onnx.py and tests/test_onnx.py (FR-17). Planned fallback: the test skips.
+skl2onnx
+onnx
+onnxruntime

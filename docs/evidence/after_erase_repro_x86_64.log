@@ -1,0 +1,9 @@
+F
+=================================== FAILURES ===================================
+_______________________________ test_after_erase _______________________________
+tests/test_audit.py:94: in test_after_erase
+    assert r["ensemble"]["auc_ci95"][0] <= 0.5 <= r["ensemble"]["auc_ci95"][1]
+E   assert 0.5 <= 0.4635396341463415
+=========================== short test summary info ============================
+FAILED tests/test_audit.py::test_after_erase - assert 0.5 <= 0.4635396341463415
+1 failed, 6 deselected in 39.27s

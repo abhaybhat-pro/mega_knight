@@ -1,0 +1,19 @@
+tests/test_audit.py: 7 passed in 59.51s
+tests/test_benchmarks.py: 9 passed, 1 skipped in 82.19s (0:01:22)
+tests/test_dp.py: 1 skipped in 0.27s
+tests/test_erase.py: 25 passed in 356.82s (0:05:56)
+tests/test_facade.py: 10 passed in 4.44s
+tests/test_generate.py: 10 passed in 0.88s
+tests/test_guard.py: 4 passed in 14.34s
+tests/test_integration.py: 12 passed in 11.92s
+tests/test_log.py: 16 passed in 0.32s
+tests/test_onnx.py: 1 skipped in 0.01s
+tests/test_paths.py: 2 passed in 0.53s
+tests/test_predict.py: 4 passed in 4.45s
+tests/test_queue.py: 8 passed in 112.60s (0:01:52)
+tests/test_receipt.py: 25 passed in 0.36s
+tests/test_resources.py: 8 passed in 0.02s
+tests/test_shards.py: 8 passed in 18.26s
+tests/test_shards_curve.py: 1 passed in 10.57s
+tests/test_subgroup_after_erase.py: 10 passed in 11.93s
+tests/test_validator.py: 25 passed in 0.06s

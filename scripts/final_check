@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# Final verification gate V1-V10. Evidence goes to docs/evidence/final_verification/.
+#   bash scripts/final_check [--commit]
+#   ONLY="V1 V4 V8" bash scripts/final_check [--commit]    re-run just those steps; their rows are appended to SUMMARY.md
+# Run it detached on a slow machine:  setsid nohup bash scripts/final_check --commit > /tmp/final_check.out 2>&1 &
+# Every step writes its own log and a PASS/FAIL line into SUMMARY.md. The host is named in SUMMARY.md;
+# a run on a host that is not s390x is a rehearsal and says so.
+# Needs: git, uv (or python -m venv), python3.12 for the minimum-version venv (numpy 1.26.4 has no wheel for 3.13).
+set -uo pipefail
+export PATH="$HOME/.local/bin:$PATH"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
+EV="$ROOT/docs/evidence/final_verification"; mkdir -p "$EV"
+SUM="$EV/SUMMARY.md"; [ -n "${ONLY:-}" ] || : > "$SUM"
+WORK="$(mktemp -d /tmp/final_check_XXXX)"
+PY312="${PY312:-python3.12}"
+[ -f .venv/bin/activate ] && source .venv/bin/activate
+KEY="throwaway-$(date +%s)-$RANDOM"; export FORGETME_HMAC_KEY="$KEY"   # shell only, never written to a file
+
+{ if [ -n "${ONLY:-}" ]; then echo; echo "## Re-run of: $ONLY ($(date -u +%FT%TZ), commit $(git rev-parse --short HEAD))"; echo
+    echo "| V | result | command | log |"; echo "|---|---|---|---|"
+  else
+  echo "# Final verification $(date -u +%FT%TZ)"; echo
+  echo "- host: $(uname -srm), cores $(nproc), $(python3 --version 2>&1)"
+  [ "$(uname -m)" = s390x ] && echo "- platform: s390x" || echo "- platform: **NOT s390x** ($(uname -m)); rehearsal only"
+  echo "- commit: $(git rev-parse --short HEAD)  tree clean: $([ -z "$(git status --porcelain -- . ':!docs/evidence/final_verification')" ] && echo yes || echo NO)"
+  echo; echo "| V | result | command | log |"; echo "|---|---|---|---|"; fi; } >> "$SUM"
+
+rec() { echo "| $1 | $2 | \`$3\` | $4 |" >> "$SUM"; echo "$1 $2"; }
+mkvenv() { # dir python
+  if command -v uv >/dev/null 2>&1; then uv venv --python "$2" "$1" >/dev/null 2>&1; else "$2" -m venv "$1"; fi; }
+pipin() { # venv args...
+  local v="$1"; shift
+  if command -v uv >/dev/null 2>&1; then uv pip install --python "$v/bin/python" "$@"; else "$v/bin/python" -m pip install "$@"; fi; }
+
+# ---------------------------------------------------------------- V1 fresh clone
+v1() {
+  git clone -q "$ROOT" "$WORK/clone" || return 1
+  cd "$WORK/clone" || return 1
+  mkvenv "$WORK/clone/.venv" python3 || return 1
+  pipin "$WORK/clone/.venv" -r requirements.txt || return 1
+  source "$WORK/clone/.venv/bin/activate"
+  python -m pytest -m "not slow" -q -p no:cacheprovider || return 1
+  python scripts/contract_check.py --wave 1 || return 1
+  python scripts/contract_check.py --wave 3 || return 1
+  bash scripts/run_demo.sh || return 1
+}
+# ---------------------------------------------------------------- V2 full suite, per file
+v2() {
+  local bad=0
+  for f in tests/test_*.py; do
+    out="$(python -m pytest "$f" -q -p no:cacheprovider 2>&1 | tail -1)"
+    echo "$f: $out"
+    echo "$out" | grep -Eq "failed|error" && bad=1
+  done
+  return $bad
+}
+# ---------------------------------------------------------------- V3 minimum versions (subset)
+v3() {
+  mkvenv "$WORK/vmin" "$PY312" || return 1
+  pipin "$WORK/vmin" numpy==1.26.4 pandas==2.1.4 scikit-learn==1.3.2 scipy==1.11.4 joblib==1.3.2 pytest || return 1
+  "$WORK/vmin/bin/python" -c "import numpy,pandas,sklearn,scipy,joblib;print(numpy.__version__,pandas.__version__,sklearn.__version__,scipy.__version__,joblib.__version__)"
+  local bad=0
+  for t in generate shards predict receipt log validator guard facade erase queue; do
+    out="$("$WORK/vmin/bin/python" -m pytest tests/test_$t.py -q -p no:cacheprovider 2>&1 | tail -1)"
+    echo "test_$t.py: $out"; echo "$out" | grep -Eq "failed|error" && bad=1
+  done
+  return $bad
+}
+# ---------------------------------------------------------------- V4 gates
+v4() {
+  local bad=0
+  for w in 1 2 3; do bash scripts/gate_wave$w.sh | tail -12; [ "${PIPESTATUS[0]}" -eq 0 ] || bad=1; done
+  # contract_check wave 3 runs the UI smoke test, which leaves toy files in data/ and models/: regenerate first
+  rm -f data/smoke_marker.txt; python -m src.data.generate || bad=1
+  python scripts/audit_gate.py || bad=1
+  return $bad
+}
+# ---------------------------------------------------------------- V5 determinism
+v5() {
+  local a="$WORK/gen_a" b="$WORK/gen_b"
+  python -c "from src.data.generate import generate; generate(out_dir='$a'); generate(out_dir='$b')" || return 1
+  (cd "$a" && sha256sum *.csv) > "$WORK/a.sha"; (cd "$b" && sha256sum *.csv) > "$WORK/b.sha"
+  cat "$WORK/a.sha"; diff "$WORK/a.sha" "$WORK/b.sha" && echo "CSV hashes identical" || return 1
+  rm -f logs/erasure_log.jsonl*; python scripts/run_demo.py > "$WORK/d1.out" 2>&1 || return 1
+  cp receipts/demo_attack_numbers.json "$WORK/n1.json"
+  rm -f logs/erasure_log.jsonl*; python scripts/run_demo.py > "$WORK/d2.out" 2>&1 || return 1
+  cmp "$WORK/n1.json" receipts/demo_attack_numbers.json && echo "demo_attack_numbers.json identical across two runs" || return 1
+  python -m pytest tests/test_shards.py -k one_worker_vs_four -q -p no:cacheprovider | tail -2
+}
+# ---------------------------------------------------------------- V6 integrity (real demo artifacts)
+v6() {
+  rm -f logs/erasure_log.jsonl*; python scripts/run_demo.py > "$WORK/d6.out" 2>&1 || return 1
+  python scripts/verify_demo_integrity.py && python scripts/tamper_demo.py | tail -8
+}
+# ---------------------------------------------------------------- V7 UI
+v7() {
+  python scripts/smoke_ui.py --real || return 1
+  (python -m streamlit run app/streamlit_app.py --server.headless true --server.port 8599 >"$WORK/st.log" 2>&1 & echo $! > "$WORK/st.pid")
+  local ok=1; for _ in $(seq 1 30); do sleep 1; h="$(curl -s localhost:8599/_stcore/health)"; [ "$h" = ok ] && { ok=0; break; }; done
+  kill "$(cat "$WORK/st.pid")" 2>/dev/null
+  echo "health: ${h:-none}"; return $ok
+}
+# ---------------------------------------------------------------- V8 hygiene, V9 docs
+v8() { python scripts/check_hygiene.py && python scripts/check_claims.py; }
+v9() { python scripts/check_hygiene.py && python scripts/check_claims.py && python scripts/gen_tree.py --check; }
+
+step() { # step V command
+  local V="$1" cmd="$2"; shift 2
+  if [ -n "${ONLY:-}" ] && ! [[ " $ONLY " == *" $V "* ]]; then return 0; fi
+  echo ">> $V"
+  ( set -o pipefail; "$cmd" ) > "$EV/$V.log" 2>&1 && r=PASS || r=FAIL
+  cd "$ROOT"; [ -f .venv/bin/activate ] && source .venv/bin/activate
+  rec "$V" "$r" "$cmd (scripts/final_check)" "$V.log"
+}
+step V1 v1; step V2 v2; step V3 v3; step V4 v4; step V5 v5; step V6 v6; step V7 v7; step V8 v8; step V9 v9
+
+if [ "${1:-}" = "--commit" ]; then
+  cp -f docs/evidence/gate_wave*.log "$EV/" 2>/dev/null
+  git add -A docs/evidence && git commit -qm "final verification evidence
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01NjMng5djijvJRzQPsGWW2c" || true
+fi
+# ---------------------------------------------------------------- V10 packaging (from the committed tree)
+v10() {
+  mkdir -p "$ROOT/dist"; git archive --format=zip --prefix=forgetme-aegis/ -o "$ROOT/dist/forgetme-aegis-submission.zip" HEAD || return 1
+  ls -l "$ROOT/dist/forgetme-aegis-submission.zip"; sha256sum "$ROOT/dist/forgetme-aegis-submission.zip"
+  python -m zipfile -l "$ROOT/dist/forgetme-aegis-submission.zip" | head -400
+  ! python -m zipfile -l "$ROOT/dist/forgetme-aegis-submission.zip" | grep -E "__pycache__|\.pyc|\.venv|forgetme-aegis/(data|models|logs|receipts)/[a-z]|\.key" 
+}
+step V10 v10
+cat "$SUM"

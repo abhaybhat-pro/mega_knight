@@ -1,0 +1,10 @@
+phase,n_workers,wall_s,avg_cpu_pct,peak_cpu_pct,peak_rss_mb,min_mem_avail_mb,disk_used_mb,host_label
+generate,1,0.1305,53.85,53.85,263.0,7317.9,15319.1,"x86_64 rehearsal, not s390x"
+train_all,2,2.9883,87.29,100.0,316.7,6979.6,15377.9,"x86_64 rehearsal, not s390x"
+shadow_build,2,22.4871,99.24,100.0,324.4,6971.7,15378.1,"x86_64 rehearsal, not s390x"
+audit,2,0.6851,51.73,53.47,324.4,6994.5,15378.1,"x86_64 rehearsal, not s390x"
+erase_one_shard,1,0.2983,50.85,50.85,324.4,6994.6,15378.1,"x86_64 rehearsal, not s390x"
+full_retrain_parallel,2,1.5143,89.92,100.0,376.5,6918.5,15378.1,"x86_64 rehearsal, not s390x"
+full_retrain_serial,1,2.3899,50.73,52.48,396.6,6895.2,15378.1,"x86_64 rehearsal, not s390x"
+guard_stream,1,2.6932,50.25,50.51,398.3,6895.4,15378.1,"x86_64 rehearsal, not s390x"
+report,1,0.0005,,,398.3,6895.4,15378.1,"x86_64 rehearsal, not s390x"

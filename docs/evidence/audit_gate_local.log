@@ -1,0 +1,22 @@
+host=x86_64 cores note: local rehearsal unless this line says s390x
+trained 8 shards in 10.4s
+audit (incl. shadow build/cache load) 26.7s
+
+shard 0: n= 50 AUC cal=0.994 CI=0.989-0.998 raw=0.991 TPR@1%FPR=0.800
+shard 1: n= 49 AUC cal=0.992 CI=0.982-0.999 raw=0.991 TPR@1%FPR=0.980
+shard 2: n= 63 AUC cal=0.995 CI=0.989-0.998 raw=0.992 TPR@1%FPR=0.825
+shard 3: n= 41 AUC cal=0.988 CI=0.979-0.995 raw=0.980 TPR@1%FPR=0.610
+shard 4: n= 37 AUC cal=0.993 CI=0.986-0.998 raw=0.985 TPR@1%FPR=0.865
+shard 5: n= 58 AUC cal=0.994 CI=0.988-0.998 raw=0.984 TPR@1%FPR=0.879
+shard 6: n= 47 AUC cal=0.992 CI=0.985-0.997 raw=0.992 TPR@1%FPR=0.702
+shard 7: n= 55 AUC cal=0.990 CI=0.982-0.996 raw=0.967 TPR@1%FPR=0.745
+
+ensemble: AUC cal=0.825 CI=0.797-0.854 raw=0.613 (CI 0.574-0.651) TPR@1%FPR=0.165 (CI 0.107-0.237)
+secondary (500 train vs 500 test, raw): ensemble AUC=0.523 CI=0.489-0.558
+
+PASS  shard worst AUC >= 0.9 (worst=0.988, mean=0.992)
+PASS  shard lower CI > 0.5 on every shard (min=0.979)
+PASS  ensemble AUC >= 0.62 (0.825)
+PASS  ensemble lower CI > 0.5 (0.797)
+
+GATE: PASS

@@ -1,0 +1,34 @@
+Writer: template (fallback: Granite not used: not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF); fixed wording, figures filled in from the receipt)
+
+ERASURE REPORT
+Request REQ-0001, recorded at 2026-10-18T03:23:15Z.
+
+Summary
+41 people were erased from the triage model. 41 records were removed from the training data. Only the shard that held their records (3) was retrained; the other shards were left alone. That is 1 of 8 shards.
+
+Erasure (DPDP duty: erase personal data when it is no longer to be kept)
+The records were deleted from the training set and the affected shard was retrained from scratch without them, so the new model never saw them.
+Retraining the affected shard took 0.28 seconds. Retraining every shard at once on the cores available to this process would have taken 1.50 seconds, so the shard retrain was 5.4 times faster than that parallel baseline. A one-at-a-time retrain of every shard measured 2.52 seconds, which is 9.0 times the shard retrain.
+
+Consent withdrawal (DPDP duty: act on a withdrawal of consent)
+The withdrawal was handled as request REQ-0001 and written to the erasure log as entry number 1. Erasing the data from the model is how this clinic acts on the withdrawal.
+
+Integrity (DPDP duty: reasonable security safeguards)
+  Shard 3: fingerprint before abc0525b5049, after 79d6bcfe0d7d (changed).
+The log entry fingerprint starts with 8a37f55715a5. Each log entry includes the fingerprint of the one before it, so editing an old entry breaks the chain. This receipt carries a signature (HMAC) made with a secret key. This report does not check that signature; the verification step does.
+
+Did the model forget? (membership-inference audit)
+Whole model, before: the attacker's score (attack AUC) was 0.774 (95% interval 0.692 to 0.852); it correctly picked out 14.6% of the audited records at a 1% false-alarm rate; the median canary percentile was 63.500.
+Whole model, after: the attacker's score (attack AUC) was 0.513 (95% interval 0.421 to 0.609); it correctly picked out 0.0% of the audited records at a 1% false-alarm rate; the median canary percentile was 42.000.
+Affected shard, before: the attacker's score (attack AUC) was 0.988 (95% interval 0.979 to 0.995); it correctly picked out 61.0% of the audited records at a 1% false-alarm rate; the median canary percentile was 98.750.
+Affected shard, after: the attacker's score (attack AUC) was 0.457 (95% interval 0.365 to 0.548); it correctly picked out 0.0% of the audited records at a 1% false-alarm rate; the median canary percentile was 50.000.
+After erasure the attacker does no better than a coin flip, within the margin of error. The audit is empirical evidence from simulated attacks on this model. It is not a mathematical proof of forgetting.
+
+Did the model stay fair and accurate?
+Accuracy on the held-out test set (AUROC) was 0.776 before and 0.777 after.
+Largest drop in accuracy for any village or age band: 0.002. Worst-affected group: village_4.
+Guard stream check, counts only: 1 village reached the major drift line, and 1348 decisions were held for human review. Held decisions wait for a person to look at them; nothing is refused automatically.
+No subgroup drop is listed on this receipt.
+
+Limits
+The data in this system is synthetic. The audit tests specific attacks; a different attack could do better. This is not legal advice. The legal status of trained model weights under the Digital Personal Data Protection Act, 2023 (DPDP Act) is unsettled, and the DPDP clause references and commencement dates mentioned here are to be verified with counsel before anyone relies on them.

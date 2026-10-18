@@ -1,0 +1,6 @@
+# after restructure: 2026-10-18T02:31:04Z x86_64 nproc=2 Python 3.13.16
+contract_check wave 1: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+contract_check wave 3: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+102 passed, 4 warnings in 32.41s

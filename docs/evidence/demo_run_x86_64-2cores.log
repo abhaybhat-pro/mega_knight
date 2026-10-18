@@ -1,0 +1,32 @@
+ForgetMe + Aegis-Z Guard demo | x86_64 | 2 core(s) | Python 3.13.16
+      previous log moved to logs/erasure_log.jsonl.20261018T032304Z.bak
+[1/9] generate synthetic data (seed 42) ...
+      done in 0.2s (20000 train rows, 2000 test rows)
+[2/9] train 8 shards ...
+      done in 3.2s
+[3/9] baseline audit (shard 3 and whole model) ...
+      done in 1.0s
+      baseline ensemble: attack_auc=0.7741463414634147 tpr@1%fpr=0.14634146341463414
+      baseline shard: attack_auc=0.9882317073170732 tpr@1%fpr=0.6097560975609756
+[4/9] guard: drift stream and no-drift stream ...
+      drift stream: 1 village(s) reached the major drift line, 1348 decision(s) held for human review
+      no-drift stream: 0 holds and 0 village flags; advisories (never added to the hold list): {'age_18_39': 2}
+      done in 6.2s
+[5/9] erase 41 member canaries in shard 3 (one request) ...
+      done in 7.2s
+      receipt guard counts: drift_flags=1 held_decisions=1348 (counts only, no person ids)
+[6/9] after-audit (from the receipt) ...
+      after ensemble: attack_auc=0.5132317073170731 tpr@1%fpr=0.0
+      after shard: attack_auc=0.45658536585365855 tpr@1%fpr=0.0
+[7/9] post-erase subgroup AUROC check ...
+      max subgroup AUROC drop 0.0015 (limit 0.03): OK
+      done in 0.4s
+[8/9] plain-language report ...
+      writer: template (Granite not used: not configured (set FORGETME_LLAMA_CLI and FORGETME_GRANITE_GGUF))
+      numbers validator: PASS
+      done in 0.0s
+[9/9] verification (receipt signature, log chain) ...
+      receipt signature: OK
+      erasure log chain: OK
+REPORT:  receipts/REQ-0001_report.txt
+RECEIPT: receipts/REQ-0001.json

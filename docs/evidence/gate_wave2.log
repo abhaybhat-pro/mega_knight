@@ -1,0 +1,29 @@
+GATE 2 start 2026-10-18T04:10:07Z
+contract_check wave 2: 0 error(s), 0 warning(s)
+CONTRACT CHECK: PASS
+........................................................................ [ 85%]
+............                                                             [100%]
+84 passed in 493.82s (0:08:13)
+..                                                                       [100%]
+2 passed, 5 deselected in 55.65s
+plotly: NOT installed (native chart fallback)
+2026-10-18 04:19:21.528 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   streamlit_app.py
+2026-10-18 04:19:21.990 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   1_Train.py
+2026-10-18 04:19:22.102 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   2_Predict.py
+2026-10-18 04:19:22.214 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   3_Erase.py
+2026-10-18 04:19:22.325 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   4_Audit.py
+2026-10-18 04:19:22.424 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   5_Guard.py
+2026-10-18 04:19:22.528 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   6_Receipts.py
+2026-10-18 04:19:22.637 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   7_Benchmarks.py
+2026-10-18 04:19:22.743 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   erase flow -> receipt + verified badge ['✔ VERIFIED']
+ok   tamper test shows INVALID
+GATE 2: PASS

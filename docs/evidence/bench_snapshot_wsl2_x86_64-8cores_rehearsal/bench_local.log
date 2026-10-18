@@ -1,0 +1,34 @@
+cores=8  rows=20000  file=train.csv  repeats=3  local WSL x86_64 rehearsal, not s390x
+  train_scaling  workers=1   shards=8   median=   4.767s
+  train_scaling  workers=2   shards=8   median=   4.330s
+  train_scaling  workers=4   shards=8   median=   2.818s
+  train_scaling  workers=8   shards=8   median=   1.721s
+  train_scaling  workers=1   shards=1   median=   3.108s
+  train_scaling  workers=1   shards=4   median=   2.668s
+  train_scaling  workers=1   shards=16  median=   3.763s
+  erase_vs_full  workers=1   shards=1   median=   2.165s
+  erase_vs_full  workers=1   shards=4   median=   0.619s
+  erase_vs_full  workers=1   shards=8   median=   0.335s
+  erase_vs_full  workers=1   shards=16  median=   0.230s
+  audit_scaling  workers=1   shards=8   median=   0.735s
+  audit_scaling  workers=2   shards=8   median=   1.740s
+  audit_scaling  workers=4   shards=8   median=   1.039s
+  audit_scaling  workers=8   shards=8   median=   0.697s
+  full_retrain_parallel workers=-1  shards=8   median=   1.921s
+  full_retrain_serial workers=1   shards=8   median=   2.929s
+  profile generate
+  profile train_all
+    soft gate WARN: avg CPU 44.4% (line is 85% of the machine) likely cause: 8 workers on 8 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile shadow_build
+    soft gate WARN: avg CPU 50.0% (line is 85% of the machine) likely cause: 8 workers on 8 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile audit
+    soft gate WARN: avg CPU 12.4% (line is 85% of the machine) likely cause: 8 workers on 8 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile erase_one_shard
+  profile full_retrain_parallel
+    soft gate WARN: avg CPU 52.4% (line is 85% of the machine) likely cause: 8 workers on 8 cores, wave ceiling 100%, or the memory budget reduced the pool
+  profile full_retrain_serial
+  profile guard_stream
+  profile report
+  wrote /home/galaba/forgetme-aegis/bench/resource_profile.csv
+  Amdahl ceiling for 8 shard tasks on 8 cores: 100%. local WSL x86_64 rehearsal, not s390x.
+/home/galaba/forgetme-aegis/bench/results.csv

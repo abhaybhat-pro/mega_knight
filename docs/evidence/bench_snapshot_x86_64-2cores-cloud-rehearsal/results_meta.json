@@ -1,0 +1,55 @@
+{
+ "byteorder": "little",
+ "experiments": {
+  "audit_scaling": {
+   "cold_cache": true,
+   "is_real": true,
+   "method": "each timed run uses a fresh empty models dir, so the shadow cache is built inside the timed region",
+   "n_members": 400,
+   "n_nonmembers": 400,
+   "repeats": 1,
+   "source": "real src.audit.mia.run_audit",
+   "standin": null,
+   "workers_not_timed": "above the core count: a CPU-bound shadow build cannot scale past the cores, so those counts were not timed",
+   "workers_timed": [
+    1,
+    2
+   ]
+  },
+  "erase_vs_full": {
+   "ids_removed": {
+    "1": 400,
+    "16": 18,
+    "4": 96,
+    "8": 41
+   },
+   "n_workers": 1,
+   "source": "remove member-canary batch + src.model.shards.train_shard on the one affected shard. NOT the end-to-end erase() (audit, log, receipt not timed)"
+  },
+  "full_retrain_parallel": {
+   "headline": "full_retrain_seconds",
+   "source": "fit_models with n_workers=-1 (plan_workers on the measured cores)"
+  },
+  "full_retrain_serial": {
+   "source": "fit_models with n_workers=1, labelled separately from the parallel baseline"
+  },
+  "train_scaling": {
+   "n_shards_main": 8,
+   "source": "src.model.shards.fit_models, no disk I/O"
+  }
+ },
+ "machine": "x86_64",
+ "n_cores": 2,
+ "n_train_rows": 20000,
+ "python": "3.13.16",
+ "quick": false,
+ "repeats": 3,
+ "timestamp_utc": "2026-10-18T03:05:53Z",
+ "training_file": "train.csv",
+ "workers": [
+  1,
+  2,
+  4,
+  8
+ ]
+}

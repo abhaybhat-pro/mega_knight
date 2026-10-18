@@ -1,0 +1,21 @@
+plotly: NOT installed (native chart fallback)
+2026-10-18 04:02:09.765 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   streamlit_app.py
+2026-10-18 04:02:10.226 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   1_Train.py
+2026-10-18 04:02:10.335 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   2_Predict.py
+2026-10-18 04:02:10.454 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   3_Erase.py
+2026-10-18 04:02:10.536 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   4_Audit.py
+2026-10-18 04:02:10.629 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   5_Guard.py
+2026-10-18 04:02:10.733 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   6_Receipts.py
+2026-10-18 04:02:10.833 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   7_Benchmarks.py
+2026-10-18 04:02:10.936 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok   erase flow -> receipt + verified badge ['✔ VERIFIED']
+ok   tamper test shows INVALID
+health: ok
